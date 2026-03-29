@@ -44,7 +44,6 @@ public class HealthMetrics {
             final double weight,
             final double height,
             final int heartRate) {
-
         this.user = user;
         this.date = date;
         this.weight = weight;
