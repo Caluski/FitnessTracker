@@ -6,9 +6,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import pl.wsb.fitnesstracker.user.api.User;
 
 @Entity
-@Table(name = "Statistics")
+@Table(name = "statistics")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -19,13 +20,25 @@ public class Statistics {
     @Nullable
     private Long id;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
+
+    @Column(name = "total_trainings", nullable = false)
     private int totalTrainings;
 
+    @Column(name = "total_distance", nullable = false)
     private double totalDistance;
 
+    @Column(name = "total_calories_burned", nullable = false)
     private int totalCaloriesBurned;
 
-    public Statistics(int totalTrainings, double totalDistance, int totalCaloriesBurned) {
+    public Statistics(
+            final User user,
+            final int totalTrainings,
+            final double totalDistance,
+            final int totalCaloriesBurned) {
+        this.user = user;
         this.totalTrainings = totalTrainings;
         this.totalDistance = totalDistance;
         this.totalCaloriesBurned = totalCaloriesBurned;
